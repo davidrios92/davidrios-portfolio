@@ -58,3 +58,12 @@ Hosted on Vercel from `main` as a static site — no build command, no framework
 `vercel.json` sets long-lived caching for `assets/`, `stack/` and `uploads/`, and
 `no-cache` for `index.html`, `css/` and `js/` (those filenames carry no content
 hash, so a long max-age would strand visitors on a stale deploy).
+
+Production: <https://davidrios-portfolio.vercel.app>
+
+## Social / SEO
+
+`og-image.png` (1200x630) is generated from the portrait, not hand-made — see the
+PIL snippet in the commit history if it needs regenerating after a copy change.
+`robots.txt`, `sitemap.xml`, `favicon.svg` and the OG/Twitter meta all reference the
+production origin, so update them together if the domain changes.
