@@ -59,7 +59,7 @@ Hosted on Vercel from `main` as a static site — no build command, no framework
 `no-cache` for `index.html`, `css/` and `js/` (those filenames carry no content
 hash, so a long max-age would strand visitors on a stale deploy).
 
-Production: <https://davidrios-portfolio.vercel.app>
+Production: <https://davidrios-portfolio-emanuel-rios-projects.vercel.app>
 
 ## Social / SEO
 

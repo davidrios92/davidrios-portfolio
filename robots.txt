@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://davidrios-portfolio.vercel.app/sitemap.xml
+Sitemap: https://davidrios-portfolio-emanuel-rios-projects.vercel.app/sitemap.xml
