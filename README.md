@@ -68,6 +68,10 @@ in the filename (`github.9bd44354.svg`), so they are served `immutable` for a ye
 Everything else — `index.html`, `css/`, `js/`, the CV, `og-image.png`, `favicon.svg`
 — keeps a stable filename and is served `max-age=0, must-revalidate`.
 
+Rule order matters: Vercel applies every matching rule and the **last** one wins,
+so the broad `/(.*)` fallback is listed first and the narrow hashed-asset rule second.
+Reversing them silently downgrades the hashed assets to must-revalidate.
+
 Note: `vercel.json` header rules accept only `source`, `headers`, `has` and `missing`.
 Adding a `comment` key fails schema validation and the deployment errors out before
 the build starts, with no build logs to explain it. Keep the reasoning here instead.
