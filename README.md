@@ -62,9 +62,22 @@ manually and drop it in as `stack/github.png`, updating the `<img src>`.
 ## Deploy
 
 Hosted on Vercel from `main` as a static site — no build command, no framework.
-`vercel.json` sets long-lived caching for `assets/`, `stack/` and `uploads/`, and
-`no-cache` for `index.html`, `css/` and `js/` (those filenames carry no content
-hash, so a long max-age would strand visitors on a stale deploy).
+
+**Caching rule:** files under `stack/` and `uploads/` carry an 8-char content hash
+in the filename (`github.9bd44354.svg`), so they are served `immutable` for a year.
+Everything else — `index.html`, `css/`, `js/`, the CV, `og-image.png`, `favicon.svg`
+— keeps a stable filename and is served `max-age=0, must-revalidate`.
+
+Never put a long `max-age` on a file whose name has no hash. A visitor who already
+loaded the old copy will keep it until it expires, and `immutable` means the browser
+will not even ask. Changing the URL is the only way to reach an already-poisoned cache.
+
+To change a hashed asset, regenerate its hash and update the reference in
+`index.html` together:
+
+```bash
+py -3 -c "import hashlib;print(hashlib.sha256(open('stack/github.svg','rb').read()).hexdigest()[:8])"
+```
 
 Production: <https://davidrios-portfolio-emanuel-rios-projects.vercel.app>
 
