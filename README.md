@@ -41,7 +41,14 @@ uploads/                portrait, Claude / AWS / n8n logos
 
 The design project's `stack/*.png` were background-removed crops of raw logo
 files. Those crops were regenerated locally from the raws (edge flood-fill +
-trim) rather than re-downloaded. GitHub and n8n use SVG marks instead of PNG.
+trim) rather than re-downloaded. n8n uses the official SVG.
+
+`stack/github.svg` is **not** the design's original asset. It is a lockup composed
+here from the official GitHub wordmark (Wikimedia `GitHub_logo_2013.svg`, measured
+bbox 999x272) plus the Octocat mark, scaled to a 392.4x100 viewBox. The design's
+own `stack/github.png` could not be pulled through the API without exceeding the
+output limit. If you want the exact original, fetch it from the design project
+manually and drop it in as `stack/github.png`, updating the `<img src>`.
 
 ## Links
 
