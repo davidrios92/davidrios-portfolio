@@ -22,6 +22,15 @@ def main(path):
     doc = pymupdf.open(path)
     added, missing = [], []
 
+    # Drop any links this script added before. Matching on the URI rather than on
+    # rect intersection: search_for rects shift slightly between incremental saves,
+    # so geometry-based matching silently misses some and they stack up.
+    targets = set(LINKS.values())
+    for page in doc:
+        for link in page.get_links():
+            if link.get("uri") in targets:
+                page.delete_link(link)
+
     for needle, uri in LINKS.items():
         hits = [(pno, r) for pno in range(doc.page_count)
                 for r in doc[pno].search_for(needle)]
@@ -29,11 +38,7 @@ def main(path):
             missing.append(needle)
             continue
         for pno, rect in hits:
-            page = doc[pno]
-            for link in page.get_links():
-                if link.get("uri") and pymupdf.Rect(link["from"]).intersects(rect):
-                    page.delete_link(link)
-            page.insert_link({"kind": pymupdf.LINK_URI, "from": rect, "uri": uri})
+            doc[pno].insert_link({"kind": pymupdf.LINK_URI, "from": rect, "uri": uri})
             added.append((needle, uri, pno + 1))
 
     doc.saveIncr()
