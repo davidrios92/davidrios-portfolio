@@ -50,6 +50,24 @@ own `stack/github.png` could not be pulled through the API without exceeding the
 output limit. If you want the exact original, fetch it from the design project
 manually and drop it in as `stack/github.png`, updating the `<img src>`.
 
+## CV
+
+`assets/David-Rios-CV-2026.pdf` is exported from a `.docx` with Word
+(`ExportAsFixedFormat`, not a library) so the document keeps its own typography,
+and so the text stays selectable for ATS parsers.
+
+Word exports the contact line as plain text, so after each export run:
+
+```bash
+py -3 tools/add-cv-links.py assets/David-Rios-CV-2026.pdf
+```
+
+That adds clickable LinkedIn / GitHub / mailto annotations. It is idempotent —
+re-running replaces the existing links rather than stacking duplicates.
+
+The filename is deliberately stable: `assets/` is served `must-revalidate`, so a
+replacement reaches visitors on the next request without needing a new URL.
+
 ## Links
 
 | Where | Target |
